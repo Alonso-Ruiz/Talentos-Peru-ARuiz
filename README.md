@@ -3,7 +3,7 @@
 Este proyecto lo hice como parte de una prueba técnica. La idea fue armar la pantalla principal de **Talentos Perú**, una app pensada para conectar empresas con postulantes de forma rápida y amigable. Quise que el diseño se sienta limpio, entendible y que funcione bien tanto en web como en móvil.
 
 ## 🚀 URL DEL PROYECTO DESPLEGADO
-https://talentos-peru-a-ruiz-cq47axut9.vercel.app/
+https://talentos-peru-a-ruiz.vercel.app/
 
 
 ## 🎨 Diseño  
