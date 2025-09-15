@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Talentos Perú — Lista de Ofertas</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap"
+        rel="stylesheet">
+    <script defer src="./scripts/tw-config.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="./styles/styles.css">
+</head>
+
+<body class="bg-white text-tpText dark:bg-slate-900 dark:text-slate-100">
+    <!-- HEADER -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur dark:bg-slate-900/95">
+        <div class="mx-auto max-w-6xl px-4 sm:px-6 pt-3 pb-2 md:hidden">
+            <div class="flex items-center justify-between gap-3">
+                <a href="#" class="shrink-0">
+                    <img src="img/logo.png" alt="Talentos Perú" class="h-10 w-auto" />
+                </a>
+                <button id="mobileMenuBtn"
+                    class="shrink-0 p-2 rounded-full hover:bg-tpSky/10 text-tpIconSecondary dark:text-slate-200"
+                    aria-controls="mobileMenu" aria-expanded="false" aria-label="Menú">
+                    <i class="fa-solid fa-bars text-[20px]"></i>
+                </button>
+            </div>
+
+            <div class="mt-3 relative">
+                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-tpIconPrimary">
+                    <i class="fa-solid fa-briefcase"></i>
+                </span>
+                <input id="q" class="w-full border border-tpBorderAlt bg-white/80 px-10 py-2 rounded-full outline-none
+                 focus:border-tpBlue focus:ring-4 focus:ring-tpSky/20
+                 dark:bg-slate-800 dark:border-slate-600 dark:placeholder:slate-400" placeholder="Título de empleo" />
+            </div>
+
+            <div id="mobileMenu" class="hidden fixed right-4 top-16 z-[60] w-56 rounded-xl border border-tpBorder bg-white shadow-soft p-2
+                  dark:bg-slate-800 dark:border-slate-700">
+                <div class="flex items-center gap-2 p-2 rounded-lg hover:bg-tpSky/10 cursor-pointer">
+                    <i class="fa-regular fa-user text-tpIconSecondary dark:text-slate-200"></i> <span>Mi perfil</span>
+                </div>
+                <div class="flex items-center gap-2 p-2 rounded-lg hover:bg-tpSky/10 cursor-pointer">
+                    <i class="fa-regular fa-bookmark text-tpIconSecondary dark:text-slate-200"></i>
+                    <span>Guardados</span>
+                </div>
+                <div class="relative">
+                    <button id="mobileLangBtn"
+                        class="w-full flex items-center justify-between gap-2 p-2 rounded-lg hover:bg-tpSky/10">
+                        <span class="text-tpIconSecondary dark:text-slate-200">ES</span>
+                        <i class="fa-solid fa-chevron-down text-[12px] text-tpIconSecondary dark:text-slate-200"></i>
+                    </button>
+                    <div id="mobileLangMenu" class="hidden mt-1 rounded-lg border border-tpBorder bg-white overflow-hidden
+                                          dark:bg-slate-800 dark:border-slate-700">
+                        <button class="w-full text-left px-3 py-2 hover:bg-tpSky/10">Español</button>
+                        <button class="w-full text-left px-3 py-2 hover:bg-tpSky/10">English</button>
+                    </div>
+                </div>
+                <button id="mobileThemeBtn" class="p-2 rounded-full hover:bg-tpSky/10" aria-label="Modo oscuro">
+                    <i id="themeIconMobile" class="fa-solid fa-moon text-[18px]"></i>
+                </button>
+
+            </div>
+        </div>
+
+        <!-- Barra DESKTOP -->
+        <div class="mx-auto max-w-6xl px-4 sm:px-6 py-3 items-center gap-6 hidden md:flex">
+            <a href="#" class="flex items-center gap-2">
+                <img src="img/logo.png" alt="Talentos Perú" class="h-12 w-auto" />
+            </a>
+
+            <!-- Buscador unido -->
+            <div class="flex-1 flex items-center justify-center">
+                <div class="w-full max-w-4xl flex items-stretch">
+                    <div class="flex-1 relative">
+                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-tpIconPrimary">
+                            <i class="fa-solid fa-briefcase"></i>
+                        </span>
+                        <input id="q-desktop" class="w-full border border-tpBorderAlt bg-white/80 px-10 py-2 rounded-l-full outline-none
+                     focus:border-tpBlue focus:ring-4 focus:ring-tpSky/20
+                     dark:bg-slate-800 dark:border-slate-600 dark:placeholder:slate-400"
+                            placeholder="Título de empleo" />
+                    </div>
+                    <div class="flex-1 relative">
+                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-tpIconPrimary">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </span>
+                        <input id="loc" class="w-full border-t border-b border-r border-tpBorderAlt bg-white/80 px-10 py-2 outline-none
+                     focus:border-tpBlue focus:ring-4 focus:ring-tpSky/20
+                     dark:bg-slate-800 dark:border-slate-600 dark:placeholder:slate-400" placeholder="Lugar" />
+                    </div>
+                    <button id="btnSearch" class="shrink-0 inline-flex items-center justify-center gap-2 rounded-r-full bg-tpBlue hover:bg-tpBlueHover text-white px-5 py-2
+                   focus:outline-none focus:ring-4 focus:ring-tpSky/30">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <span class="sr-only">Buscar</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Acciones derechas -->
+            <nav class="flex items-center gap-3 text-tpIconSecondary dark:text-slate-200">
+                <button title="Guardados" class="p-2 rounded-full hover:bg-tpSky/10" aria-label="Guardados">
+                    <i class="fa-regular fa-bookmark text-[20px]"></i>
+                </button>
+                <button title="Perfil" class="p-2 rounded-full hover:bg-tpSky/10" aria-label="Perfil">
+                    <i class="fa-regular fa-user text-[20px]"></i>
+                </button>
+                <span class="hidden sm:block h-6 w-[2px] bg-tpBorderAlt dark:bg-slate-600 mx-1"></span>
+                <div class="relative">
+                    <button id="langBtn" class="flex items-center gap-2 px-3 py-2 rounded-full border border-tpBorderAlt text-tpIconSecondary hover:border-tpBlue
+                   dark:text-slate-200 dark:border-slate-600">
+                        ES <i class="fa-solid fa-chevron-down text-[14px]"></i>
+                    </button>
+                    <div id="langMenu" class="hidden absolute right-0 mt-2 w-28 rounded-xl border border-tpBorder bg-white shadow-soft
+                   dark:bg-slate-800 dark:border-slate-700">
+                        <button class="w-full text-left px-3 py-2 hover:bg-tpSky/10">Español</button>
+                        <button class="w-full text-left px-3 py-2 hover:bg-tpSky/10">English</button>
+                    </div>
+                </div>
+                <button id="themeBtn" title="Modo oscuro" class="p-2 rounded-full hover:bg-tpSky/10"
+                    aria-label="Modo oscuro">
+                    <i id="themeIconDesktop" class="fa-solid fa-moon text-[18px]"></i>
+                </button>
+            </nav>
+        </div>
+
+        <!-- Filtros con scroll horizontal en móvil -->
+        <div class="mx-auto max-w-6xl px-4 sm:px-6 pb-3">
+            <div
+                class="flex gap-2 flex-nowrap overflow-x-auto overflow-y-visible md:overflow-visible whitespace-nowrap">
+                <div class="flex gap-2">
+                    <!-- Fecha -->
+                    <div class="relative shrink-0">
+                        <button id="filter-date-btn" class="flex items-center gap-2 px-4 py-2 rounded-full border border-tpBorderAlt bg-white hover:bg-tpSky/10
+                 dark:bg-slate-800 dark:border-slate-600">
+                            <span class="text-tpMuted dark:text-slate-200">Fecha de publicación</span>
+                            <i class="fa-solid fa-chevron-down text-[12px] text-tpMuted dark:text-slate-200"></i>
+                        </button>
+                        <ul id="filter-date-menu" class="hidden absolute left-0 mt-2 z-[80] min-w-[220px] rounded-xl border border-tpBorder bg-white shadow-soft overflow-hidden
+                 dark:bg-slate-800 dark:border-slate-700">
+                            <li><button
+                                    class="filter-opt w-full text-left px-4 py-2 hover:bg-tpSky/10 dark:text-slate-200">Cualquier
+                                    fecha</button></li>
+                            <li><button
+                                    class="filter-opt w-full text-left px-4 py-2 hover:bg-tpSky/10 dark:text-slate-200"
+                                    data-value="24h">Últimas 24 horas</button></li>
+                            <li><button
+                                    class="filter-opt w-full text-left px-4 py-2 hover:bg-tpSky/10 dark:text-slate-200"
+                                    data-value="7d">Últimos 7 días</button></li>
+                            <li><button
+                                    class="filter-opt w-full text-left px-4 py-2 hover:bg-tpSky/10 dark:text-slate-200"
+                                    data-value="30d">Últimos 30 días</button></li>
+                        </ul>
+                    </div>
+
+                    <!-- Modalidad -->
+                    <div class="relative shrink-0">
+                        <button id="filter-mode-btn" class="flex items-center gap-2 px-4 py-2 rounded-full border border-tpBorderAlt bg-white hover:bg-tpSky/10
+                 dark:bg-slate-800 dark:border-slate-600">
+                            <span class="text-tpMuted dark:text-slate-200">Modalidad</span>
+                            <i class="fa-solid fa-chevron-down text-[12px] text-tpMuted dark:text-slate-200"></i>
+                        </button>
+                        <ul id="filter-mode-menu" class="hidden absolute left-0 mt-2 z-[80] min-w-[200px] rounded-xl border border-tpBorder bg-white shadow-soft overflow-hidden
+                 dark:bg-slate-800 dark:border-slate-700">
+                            <li><button
+                                    class="filter-opt w-full text-left px-4 py-2 hover:bg-tpSky/10 dark:text-slate-200"
+                                    data-value="all">Todas</button></li>
+                            <li><button
+                                    class="filter-opt w-full text-left px-4 py-2 hover:bg-tpSky/10 dark:text-slate-200"
+                                    data-value="Remoto">Remoto</button></li>
+                            <li><button
+                                    class="filter-opt w-full text-left px-4 py-2 hover:bg-tpSky/10 dark:text-slate-200"
+                                    data-value="Híbrido">Híbrido</button></li>
+                            <li><button
+                                    class="filter-opt w-full text-left px-4 py-2 hover:bg-tpSky/10 dark:text-slate-200"
+                                    data-value="Presencial">Presencial</button></li>
+                        </ul>
+                    </div>
+
+                    <!-- Experiencia -->
+                    <div class="relative shrink-0">
+                        <button id="filter-exp-btn" class="flex items-center gap-2 px-4 py-2 rounded-full border border-tpBorderAlt bg-white hover:bg-tpSky/10
+                 dark:bg-slate-800 dark:border-slate-600">
+                            <span class="text-tpMuted dark:text-slate-200">Experiencia</span>
+                            <i class="fa-solid fa-chevron-down text-[12px] text-tpMuted dark:text-slate-200"></i>
+                        </button>
+                        <ul id="filter-exp-menu" class="hidden absolute left-0 mt-2 z-[80] min-w-[200px] rounded-xl border border-tpBorder bg-white shadow-soft overflow-hidden
+                 dark:bg-slate-800 dark:border-slate-700">
+                            <li><button
+                                    class="filter-opt w-full text-left px-4 py-2 hover:bg-tpSky/10 dark:text-slate-200"
+                                    data-value="all">Todas</button></li>
+                            <li><button
+                                    class="filter-opt w-full text-left px-4 py-2 hover:bg-tpSky/10 dark:text-slate-200"
+                                    data-value="Junior">Junior</button></li>
+                            <li><button
+                                    class="filter-opt w-full text-left px-4 py-2 hover:bg-tpSky/10 dark:text-slate-200"
+                                    data-value="Semi Senior">Semi Senior</button></li>
+                            <li><button
+                                    class="filter-opt w-full text-left px-4 py-2 hover:bg-tpSky/10 dark:text-slate-200"
+                                    data-value="Senior">Senior</button></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENIDO -->
+    <main class="mx-auto max-w-6xl px-4 sm:px-6 py-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- Lista -->
+        <section aria-label="Listado de ofertas" class="lg:col-span-1 space-y-4" id="jobList"></section>
+
+        <!-- Detalle (solo desktop) -->
+        <aside aria-label="Detalle de la oferta" class="hidden lg:block lg:col-span-2">
+            <article id="jobDetail" class="rounded-xl2 border border-tpBorderAlt p-5 shadow-soft
+                                     dark:bg-slate-800 dark:border-slate-600">
+                <div class="text-tpMuted dark:text-slate-300">Selecciona una oferta para ver los detalles</div>
+            </article>
+        </aside>
+    </main>
+
+    <!-- MODAL (mobile) -->
+    <div id="mobileModal" class="fixed inset-0 hidden items-end justify-center bg-black/40 z-50">
+        <div class="w-full max-w-md bg-white rounded-t-2xl p-5 shadow-soft max-h-[85vh] overflow-auto
+                dark:bg-slate-800">
+            <div class="flex items-center justify-between mb-3">
+                <h3 class="font-display text-lg dark:text-white">Detalle del empleo</h3>
+                <button id="closeModal" class="p-2 rounded-full hover:bg-tpSky/10" aria-label="Cerrar">
+                    <i class="fa-solid fa-xmark text-[20px] dark:text-slate-200"></i>
+                </button>
+            </div>
+            <div id="mobileDetail"></div>
+            <div class="sticky bottom-0 mt-4">
+                <button
+                    class="w-full py-3 rounded-full bg-tpYellow text-tpText font-semibold hover:brightness-95">Postular</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- App JS -->
+    <script defer src="./scripts/app.js"></script>
+</body>
+
+</html>
