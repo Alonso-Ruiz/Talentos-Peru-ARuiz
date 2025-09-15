@@ -52,13 +52,16 @@
                 <div class="relative">
                     <button id="mobileLangBtn"
                         class="w-full flex items-center justify-between gap-2 p-2 rounded-lg hover:bg-tpSky/10">
-                        <span class="text-tpIconSecondary dark:text-slate-200">ES</span>
+                        <span class="text-tpIconSecondary dark:text-slate-200"><i
+                                class="fa-solid fa-flag mr-2"></i>ES</span>
                         <i class="fa-solid fa-chevron-down text-[12px] text-tpIconSecondary dark:text-slate-200"></i>
                     </button>
                     <div id="mobileLangMenu" class="hidden mt-1 rounded-lg border border-tpBorder bg-white overflow-hidden
-                                          dark:bg-slate-800 dark:border-slate-700">
-                        <button class="w-full text-left px-3 py-2 hover:bg-tpSky/10">Español</button>
-                        <button class="w-full text-left px-3 py-2 hover:bg-tpSky/10">English</button>
+                                        dark:bg-slate-800 dark:border-slate-700">
+                        <button class="w-full text-left px-3 py-2 hover:bg-tpSky/10"><i
+                                class="fa-solid fa-flag mr-2"></i>Español</button>
+                        <button class="w-full text-left px-3 py-2 hover:bg-tpSky/10"><i
+                                class="fa-solid fa-flag-usa mr-2"></i>English</button>
                     </div>
                 </div>
                 <button id="mobileThemeBtn" class="p-2 rounded-full hover:bg-tpSky/10" aria-label="Modo oscuro">
@@ -113,13 +116,15 @@
                 <span class="hidden sm:block h-6 w-[2px] bg-tpBorderAlt dark:bg-slate-600 mx-1"></span>
                 <div class="relative">
                     <button id="langBtn" class="flex items-center gap-2 px-3 py-2 rounded-full border border-tpBorderAlt text-tpIconSecondary hover:border-tpBlue
-                   dark:text-slate-200 dark:border-slate-600">
-                        ES <i class="fa-solid fa-chevron-down text-[14px]"></i>
+                dark:text-slate-200 dark:border-slate-600">
+                        <i class="fa-solid fa-flag mr-2"></i>ES <i class="fa-solid fa-chevron-down text-[14px]"></i>
                     </button>
                     <div id="langMenu" class="hidden absolute right-0 mt-2 w-28 rounded-xl border border-tpBorder bg-white shadow-soft
-                   dark:bg-slate-800 dark:border-slate-700">
-                        <button class="w-full text-left px-3 py-2 hover:bg-tpSky/10">Español</button>
-                        <button class="w-full text-left px-3 py-2 hover:bg-tpSky/10">English</button>
+                dark:bg-slate-800 dark:border-slate-700">
+                        <button class="w-full text-left px-3 py-2 hover:bg-tpSky/10"><i
+                                class="fa-solid fa-flag mr-2"></i>Español</button>
+                        <button class="w-full text-left px-3 py-2 hover:bg-tpSky/10"><i
+                                class="fa-solid fa-flag-usa mr-2"></i>English</button>
                     </div>
                 </div>
                 <button id="themeBtn" title="Modo oscuro" class="p-2 rounded-full hover:bg-tpSky/10"
@@ -132,17 +137,17 @@
         <!-- Filtros con scroll horizontal en móvil -->
         <div class="mx-auto max-w-6xl px-4 sm:px-6 pb-3">
             <div
-                class="flex gap-2 flex-nowrap overflow-x-auto overflow-y-visible md:overflow-visible whitespace-nowrap">
+                class="flex gap-2 flex-nowrap overflow-x-auto overflow-y-visible md:overflow-visible whitespace-nowrap items-center">
                 <div class="flex gap-2">
                     <!-- Fecha -->
                     <div class="relative shrink-0">
                         <button id="filter-date-btn" class="flex items-center gap-2 px-4 py-2 rounded-full border border-tpBorderAlt bg-white hover:bg-tpSky/10
-                 dark:bg-slate-800 dark:border-slate-600">
+         dark:bg-slate-800 dark:border-slate-600">
                             <span class="text-tpMuted dark:text-slate-200">Fecha de publicación</span>
                             <i class="fa-solid fa-chevron-down text-[12px] text-tpMuted dark:text-slate-200"></i>
                         </button>
                         <ul id="filter-date-menu" class="hidden absolute left-0 mt-2 z-[80] min-w-[220px] rounded-xl border border-tpBorder bg-white shadow-soft overflow-hidden
-                 dark:bg-slate-800 dark:border-slate-700">
+         dark:bg-slate-800 dark:border-slate-700">
                             <li><button
                                     class="filter-opt w-full text-left px-4 py-2 hover:bg-tpSky/10 dark:text-slate-200">Cualquier
                                     fecha</button></li>
@@ -161,12 +166,12 @@
                     <!-- Modalidad -->
                     <div class="relative shrink-0">
                         <button id="filter-mode-btn" class="flex items-center gap-2 px-4 py-2 rounded-full border border-tpBorderAlt bg-white hover:bg-tpSky/10
-                 dark:bg-slate-800 dark:border-slate-600">
+         dark:bg-slate-800 dark:border-slate-600">
                             <span class="text-tpMuted dark:text-slate-200">Modalidad</span>
                             <i class="fa-solid fa-chevron-down text-[12px] text-tpMuted dark:text-slate-200"></i>
                         </button>
                         <ul id="filter-mode-menu" class="hidden absolute left-0 mt-2 z-[80] min-w-[200px] rounded-xl border border-tpBorder bg-white shadow-soft overflow-hidden
-                 dark:bg-slate-800 dark:border-slate-700">
+         dark:bg-slate-800 dark:border-slate-700">
                             <li><button
                                     class="filter-opt w-full text-left px-4 py-2 hover:bg-tpSky/10 dark:text-slate-200"
                                     data-value="all">Todas</button></li>
@@ -185,12 +190,12 @@
                     <!-- Experiencia -->
                     <div class="relative shrink-0">
                         <button id="filter-exp-btn" class="flex items-center gap-2 px-4 py-2 rounded-full border border-tpBorderAlt bg-white hover:bg-tpSky/10
-                 dark:bg-slate-800 dark:border-slate-600">
+         dark:bg-slate-800 dark:border-slate-600">
                             <span class="text-tpMuted dark:text-slate-200">Experiencia</span>
                             <i class="fa-solid fa-chevron-down text-[12px] text-tpMuted dark:text-slate-200"></i>
                         </button>
                         <ul id="filter-exp-menu" class="hidden absolute left-0 mt-2 z-[80] min-w-[200px] rounded-xl border border-tpBorder bg-white shadow-soft overflow-hidden
-                 dark:bg-slate-800 dark:border-slate-700">
+         dark:bg-slate-800 dark:border-slate-700">
                             <li><button
                                     class="filter-opt w-full text-left px-4 py-2 hover:bg-tpSky/10 dark:text-slate-200"
                                     data-value="all">Todas</button></li>
@@ -206,6 +211,11 @@
                         </ul>
                     </div>
                 </div>
+                <!-- Botón quitar filtros -->
+                <button id="clearFiltersBtn"
+                    class="hidden ml-4 px-4 py-2 rounded-full border border-tpBlue text-tpBlue font-semibold bg-white hover:bg-tpBlue/10 transition-colors dark:bg-slate-800 dark:border-tpBlue dark:text-tpBlue">
+                    <i class="fa-solid fa-xmark mr-2"></i>Quitar filtros
+                </button>
             </div>
         </div>
     </header>
@@ -242,7 +252,8 @@
         </div>
     </div>
 
-    <!-- App JS -->
+    <!-- Traducciones y App JS -->
+    <script src="./scripts/translations.js"></script>
     <script defer src="./scripts/app.js"></script>
 </body>
 

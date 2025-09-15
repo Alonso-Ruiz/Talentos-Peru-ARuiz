@@ -1,108 +1,39 @@
 (() => {
   'use strict';
 
-  /* =========================
-   * Datos demo
-   * ========================= */
-  const jobOffers = [
-    {
-      id: 1,
-      title: "Desarrollador Web",
-      company: "Importador S.A.C",
-      location: "San Isidro – Lima",
-      modality: "Remoto",
-      salary: "Desde S/2,000 – S/2,500",
-      age: "Hace 2 días",
-      postedDays: 2,
-      experience: "Junior",
-      description:
-        "Buscamos un desarrollador con foco en UI limpia y accesible. Implementarás vistas responsivas con Tailwind.",
-      requirements: ["HTML", "CSS (Tailwind)", "JavaScript (Vanilla)", "Accesibilidad"],
-      benefits: ["Planilla desde el primer día", "Horarios flexibles", "Bonificación de alimentos"]
-    },
-    {
-      id: 2,
-      title: "Analista Técnico",
-      company: "NTT DATA S.A.C",
-      location: "San Borja – Lima",
-      modality: "Híbrido",
-      salary: "S/3,500 – S/4,500",
-      age: "Hace 1 semana",
-      postedDays: 7,
-      experience: "Semi Senior",
-      description:
-        "Rol de análisis y soporte a equipos de desarrollo. Documentación y validaciones UAT.",
-      requirements: ["Requerimientos", "Pruebas UAT", "SQL básico"],
-      benefits: ["EPS 70%", "Capacitaciones", "Trabajo híbrido"]
-    },
-    {
-      id: 3,
-      title: "Front-End Developer",
-      company: "Tech Perú",
-      location: "Remoto",
-      modality: "Presencial",
-      salary: "Hasta S/6,000",
-      age: "Hoy",
-      postedDays: 0,
-      experience: "Senior",
-      description:
-        "UI components, performance y buenas prácticas de accesibilidad. Trabajo 100% remoto.",
-      requirements: ["Tailwind", "Performance Web", "Git / PR Flow"],
-      benefits: ["Remoto", "Equipo senior", "Horario flexible"]
-    },
-    {
-      id: 4,
-      title: "QA Tester",
-      company: "Andes Digital",
-      location: "Miraflores – Lima",
-      modality: "Híbrido",
-      salary: "S/3,000 – S/3,800",
-      age: "Hace 3 días",
-      postedDays: 3,
-      experience: "Junior",
-      description:
-        "Ejecución de planes de prueba manuales, reporte de bugs y colaboración con Devs para asegurar la calidad.",
-      requirements: ["Casos de prueba", "JIRA/Asana", "Conocimientos de API (básico)"],
-      benefits: ["Planilla", "Capacitaciones", "Horario flexible"]
-    }
-  ];
 
-  /* =========================
-   * Helpers
-   * ========================= */
+
+  /* Helpers*/
+
   const qs = (sel, root = document) => root.querySelector(sel);
   const qsa = (sel, root = document) => Array.from(root.querySelectorAll(sel));
   const on = (el, ev, cb, opts) => el && el.addEventListener(ev, cb, opts);
 
   const isDesktopMQ = window.matchMedia('(min-width: 1024px)');
 
-  /* =========================
-   * Estado de filtros
-   * ========================= */
+  /* Estado de filtros */
   const filters = { date: 'any', mode: 'all', exp: 'all' };
+  const defaultFilters = { date: 'any', mode: 'all', exp: 'all' };
 
-  /* =========================
-   * Selectores cacheados
-   * ========================= */
-  const listEl         = qs('#jobList');
-  const detailEl       = qs('#jobDetail');
-  const modalEl        = qs('#mobileModal');
+  /* Selectores cacheados */
+  const listEl = qs('#jobList');
+  const detailEl = qs('#jobDetail');
+  const modalEl = qs('#mobileModal');
   const mobileDetailEl = qs('#mobileDetail');
+  const clearFiltersBtn = qs('#clearFiltersBtn');
 
-  const langBtn        = qs('#langBtn');
-  const langMenu       = qs('#langMenu');
+  const langBtn = qs('#langBtn');
+  const langMenu = qs('#langMenu');
 
-  const mobileMenuBtn  = qs('#mobileMenuBtn');
-  const mobileMenu     = qs('#mobileMenu');
-  const mobileLangBtn  = qs('#mobileLangBtn');
+  const mobileMenuBtn = qs('#mobileMenuBtn');
+  const mobileMenu = qs('#mobileMenu');
+  const mobileLangBtn = qs('#mobileLangBtn');
   const mobileLangMenu = qs('#mobileLangMenu');
 
-  const themeBtn       = qs('#themeBtn');
+  const themeBtn = qs('#themeBtn');
   const mobileThemeBtn = qs('#mobileThemeBtn');
 
-  /* =========================
-   * Tema (persistencia + iconos)
-   * ========================= */
+
   const applyTheme = (theme) => {
     const root = document.documentElement;
     root.classList.toggle('dark', theme === 'dark');
@@ -127,10 +58,10 @@
   const updateThemeIcons = () => {
     const isDark = document.documentElement.classList.contains('dark');
     const desk = qs('#themeIconDesktop');
-    const mob  = qs('#themeIconMobile');
+    const mob = qs('#themeIconMobile');
 
-    const toSun  = el => { el && el.classList.remove('fa-moon'); el && el.classList.add('fa-sun'); };
-    const toMoon = el => { el && el.classList.remove('fa-sun');  el && el.classList.add('fa-moon'); };
+    const toSun = el => { el && el.classList.remove('fa-moon'); el && el.classList.add('fa-sun'); };
+    const toMoon = el => { el && el.classList.remove('fa-sun'); el && el.classList.add('fa-moon'); };
 
     isDark ? (toSun(desk), toSun(mob)) : (toMoon(desk), toMoon(mob));
   };
@@ -209,57 +140,118 @@
     </div>
   `;
 
-  const detailTemplate        = (job) => detailHeader(job, false) + detailBody(job) + detailFooter;
-  const detailTemplateMobile  = (job) => detailHeader(job, true)  + detailBody(job);
+  const detailTemplate = (job) => detailHeader(job, false) + detailBody(job) + detailFooter;
+  const detailTemplateMobile = (job) => detailHeader(job, true) + detailBody(job);
 
   /* =========================
    * Render & Filtros
    * ========================= */
   const passesFilters = (job) => {
     const d = job.postedDays;
-    if (filters.date === '24h' && d > 1)  return false;
-    if (filters.date === '7d'  && d > 7)  return false;
+    if (filters.date === '24h' && d > 1) return false;
+    if (filters.date === '7d' && d > 7) return false;
     if (filters.date === '30d' && d > 30) return false;
-    if (filters.mode !== 'all' && job.modality   !== filters.mode) return false;
-    if (filters.exp  !== 'all' && job.experience !== filters.exp)  return false;
+    if (filters.mode !== 'all' && job.modality !== filters.mode) return false;
+    if (filters.exp !== 'all' && job.experience !== filters.exp) return false;
     return true;
   };
 
-  const renderList = () => {
-    const data = jobOffers.filter(passesFilters);
+  function isAnyFilterActive() {
+    return filters.date !== 'any' || filters.mode !== 'all' || filters.exp !== 'all';
+  }
+
+  function updateClearFiltersBtn() {
+    if (!clearFiltersBtn) return;
+    if (isAnyFilterActive()) {
+      clearFiltersBtn.classList.remove('hidden');
+    } else {
+      clearFiltersBtn.classList.add('hidden');
+    }
+  }
+
+
+  function updateFilterButtonLabels() {
+    // Fecha
+    const filterDateBtn = qs('#filter-date-btn');
+    if (filterDateBtn) {
+      let label = '';
+      switch (filters.date) {
+        case '24h': label = window.t('date24h'); break;
+        case '7d': label = window.t('date7d'); break;
+        case '30d': label = window.t('date30d'); break;
+        default: label = window.t('date'); break;
+      }
+      filterDateBtn.querySelector('span').textContent = label;
+    }
+    // Modalidad
+    const filterModeBtn = qs('#filter-mode-btn');
+    if (filterModeBtn) {
+      let label = '';
+      switch (filters.mode) {
+        case 'Remoto': label = window.t('modeRemote'); break;
+        case 'Híbrido': label = window.t('modeHybrid'); break;
+        case 'Presencial': label = window.t('modeOnsite'); break;
+        case 'Remote': label = window.t('modeRemote'); break;
+        case 'Hybrid': label = window.t('modeHybrid'); break;
+        case 'Onsite': label = window.t('modeOnsite'); break;
+        case 'all': label = window.t('mode'); break;
+        default: label = window.t('mode'); break;
+      }
+      filterModeBtn.querySelector('span').textContent = label;
+    }
+    // Experiencia
+    const filterExpBtn = qs('#filter-exp-btn');
+    if (filterExpBtn) {
+      let label = '';
+      switch (filters.exp) {
+        case 'Junior': label = window.t('expJunior'); break;
+        case 'Semi Senior': label = window.t('expSemi'); break;
+        case 'Senior': label = window.t('expSenior'); break;
+        case 'all': label = window.t('exp'); break;
+        default: label = window.t('exp'); break;
+      }
+      filterExpBtn.querySelector('span').textContent = label;
+    }
+  }
+
+  window.renderList = function () {
+    window.jobOffers = window.currentLang === 'es' ? window.jobOffersES : window.jobOffersEN;
+    const data = window.jobOffers.filter(passesFilters);
     listEl.innerHTML = data.map(jobCardTemplate).join('') || `
       <div class="rounded-xl2 border border-tpBorderAlt p-4 text-tpMuted dark:text-slate-300 dark:border-slate-600 dark:bg-slate-800">
-        No hay resultados con los filtros actuales.
+        ${window.t('noResults')}
       </div>
     `;
+    updateClearFiltersBtn();
+    updateFilterButtonLabels();
   };
 
   const selectCard = (cardEl) => {
     qsa('.job-card').forEach(c => {
-      c.classList.remove('ring-2','ring-tpBlue');
-      c.setAttribute('aria-pressed','false');
+      c.classList.remove('ring-2', 'ring-tpBlue');
+      c.setAttribute('aria-pressed', 'false');
     });
-    cardEl.classList.add('ring-2','ring-tpBlue');
-    cardEl.setAttribute('aria-pressed','true');
+    cardEl.classList.add('ring-2', 'ring-tpBlue');
+    cardEl.setAttribute('aria-pressed', 'true');
   };
 
   /* =========================
    * Modal helpers
    * ========================= */
   const showModal = () => { modalEl.classList.remove('hidden'); modalEl.classList.add('flex'); };
-  const hideModal = () => { modalEl.classList.add('hidden');   modalEl.classList.remove('flex'); };
+  const hideModal = () => { modalEl.classList.add('hidden'); modalEl.classList.remove('flex'); };
 
   /* =========================
    * Dropdowns portalizados
    * ========================= */
   const initDropdown = (btnId, menuId, onSelect) => {
-    const btn  = qs(`#${btnId}`);
+    const btn = qs(`#${btnId}`);
     const menu = qs(`#${menuId}`);
     if (!btn || !menu) return;
 
     // Guarda el padre original con id seguro
     const parent = menu.parentElement;
-    if (!parent.id) parent.id = `parent_${menuId}_${Math.random().toString(36).slice(2,7)}`;
+    if (!parent.id) parent.id = `parent_${menuId}_${Math.random().toString(36).slice(2, 7)}`;
     menu.dataset.parentId = parent.id;
 
     const openMenu = () => {
@@ -281,7 +273,7 @@
       if (menu.dataset.portaled === '1') {
         const back = qs(`#${menu.dataset.parentId}`);
         back && back.appendChild(menu);
-        Object.assign(menu.style, { position:'', top:'', left:'', minWidth:'', zIndex:'' });
+        Object.assign(menu.style, { position: '', top: '', left: '', minWidth: '', zIndex: '' });
         delete menu.dataset.portaled;
       }
     };
@@ -295,7 +287,7 @@
           const pid = m.dataset.parentId;
           const back = pid && qs(`#${pid}`);
           back && back.appendChild(m);
-          Object.assign(m.style, { position:'', top:'', left:'', minWidth:'', zIndex:'' });
+          Object.assign(m.style, { position: '', top: '', left: '', minWidth: '', zIndex: '' });
           delete m.dataset.portaled;
         });
         openMenu();
@@ -314,7 +306,7 @@
 
     on(document, 'click', (e) => {
       if (!menu.classList.contains('hidden') &&
-          !btn.contains(e.target) && !menu.contains(e.target)) {
+        !btn.contains(e.target) && !menu.contains(e.target)) {
         closeMenu();
       }
     }, { passive: true });
@@ -353,11 +345,11 @@
   /* =========================
    * Responsive sync
    * ========================= */
-  const showDesktopDetailFromSelection = () => {
+  window.showDesktopDetailFromSelection = function () {
     let selected = qs('.job-card[aria-pressed="true"]') || qs('.job-card');
     if (!selected) return;
     const id = Number(selected.dataset.id);
-    const job = jobOffers.find(j => j.id === id);
+    const job = window.jobOffers.find(j => j.id === id);
     if (job) detailEl.innerHTML = detailTemplate(job);
   };
 
@@ -394,7 +386,7 @@
 
     // Accesibilidad teclado
     on(listEl, 'keydown', (e) => {
-      if (!['Enter',' '].includes(e.key)) return;
+      if (!['Enter', ' '].includes(e.key)) return;
       const card = e.target.closest('.job-card');
       if (card) card.click();
     });
@@ -403,7 +395,7 @@
     on(qs('#closeModal'), 'click', hideModal);
 
     // Acciones detalle (desktop y móvil)
-    on(detailEl,       'click', handleDetailActions(detailEl));
+    on(detailEl, 'click', handleDetailActions(detailEl));
     on(mobileDetailEl, 'click', handleDetailActions(mobileDetailEl));
 
     // Idioma (desktop)
@@ -411,15 +403,20 @@
       e.stopPropagation();
       langMenu && langMenu.classList.toggle('hidden');
     });
+    if (langMenu) {
+      const btns = langMenu.querySelectorAll('button');
+      if (btns[0]) on(btns[0], 'click', () => { window.setLang('es'); langMenu.classList.add('hidden'); });
+      if (btns[1]) on(btns[1], 'click', () => { window.setLang('en'); langMenu.classList.add('hidden'); });
+    }
     on(document, 'click', (e) => {
       if (langMenu && !langMenu.classList.contains('hidden') &&
-          !langBtn.contains(e.target) && !langMenu.contains(e.target)) {
+        !langBtn.contains(e.target) && !langMenu.contains(e.target)) {
         langMenu.classList.add('hidden');
       }
     });
 
     // Tema (desktop/móvil)
-    on(themeBtn,       'click', toggleTheme);
+    on(themeBtn, 'click', toggleTheme);
     on(mobileThemeBtn, 'click', toggleTheme);
 
     // Menú móvil
@@ -428,31 +425,63 @@
       mobileMenu && mobileMenu.classList.toggle('hidden');
       mobileMenuBtn.setAttribute('aria-expanded', String(!mobileMenu.classList.contains('hidden')));
     });
+
+    // Idioma móvil: mostrar/ocultar menú
+    on(mobileLangBtn, 'click', (e) => {
+      e.stopPropagation();
+      if (mobileLangMenu) mobileLangMenu.classList.toggle('hidden');
+    });
+    if (mobileLangMenu) {
+      const btns = mobileLangMenu.querySelectorAll('button');
+      if (btns[0]) on(btns[0], 'click', () => { window.setLang('es'); mobileLangMenu.classList.add('hidden'); });
+      if (btns[1]) on(btns[1], 'click', () => { window.setLang('en'); mobileLangMenu.classList.add('hidden'); });
+    }
     on(document, 'click', (e) => {
+      // Cerrar menú móvil
       if (mobileMenu && !mobileMenu.classList.contains('hidden') &&
-          !mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+        !mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
         mobileMenu.classList.add('hidden');
         mobileMenuBtn.setAttribute('aria-expanded', 'false');
+      }
+      // Cerrar menú de idioma móvil
+      if (mobileLangMenu && !mobileLangMenu.classList.contains('hidden') &&
+        !mobileLangBtn.contains(e.target) && !mobileLangMenu.contains(e.target)) {
+        mobileLangMenu.classList.add('hidden');
       }
     });
 
     // Dropdowns de filtros
     initDropdown('filter-date-btn', 'filter-date-menu', (val) => { filters.date = val; renderList(); });
     initDropdown('filter-mode-btn', 'filter-mode-menu', (val) => { filters.mode = val; renderList(); });
-    initDropdown('filter-exp-btn',  'filter-exp-menu',  (val) => { filters.exp  = val; renderList(); });
+    initDropdown('filter-exp-btn', 'filter-exp-menu', (val) => { filters.exp = val; renderList(); });
+
+    // Botón quitar filtros
+    if (clearFiltersBtn) {
+      on(clearFiltersBtn, 'click', () => {
+        filters.date = 'any';
+        filters.mode = 'all';
+        filters.exp = 'all';
+        renderList();
+      });
+    }
   };
+
 
   /* =========================
    * Init
    * ========================= */
   initTheme();
-  renderList();
   attachEvents();
   setupResponsiveSync();
+  window.renderList();
+  updateClearFiltersBtn();
+  updateFilterButtonLabels();
+  window.showDesktopDetailFromSelection();
+  window.applyTranslations();
 
   // Detalle por defecto SOLO en desktop
-  if (isDesktopMQ.matches && jobOffers[0]) {
-    detailEl.innerHTML = detailTemplate(jobOffers[0]);
+  if (isDesktopMQ.matches && (window.jobOffers && window.jobOffers[0])) {
+    detailEl.innerHTML = detailTemplate(window.jobOffers[0]);
     const firstCard = qs('.job-card');
     if (firstCard) selectCard(firstCard);
   }
